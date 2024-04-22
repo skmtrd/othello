@@ -18,22 +18,22 @@ const Home = () => {
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 2, 2, 2, 2, 2, 1, 0],
+    [0, 0, 0, 1, 2, 0, 0, 0],
     [0, 0, 0, 2, 1, 0, 0, 0],
-    [0, 0, 0, 2, 0, 0, 0, 0],
-    [0, 0, 0, 1, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
   ]);
   const clickHandler = (x: number, y: number) => {
     console.log(x, y);
 
-    var checkRun = 'True';
+    // var checkRun = 'True';
     const newBoard = structuredClone(board);
     for (const direction of directions) {
       const memoryPosision = [];
-      if (checkRun === 'False') {
-        break;
-      }
+      // if (checkRun === 'False') {
+      //   break;
+      // }
       if (board[y + direction[0]][x + direction[1]] === 3 - turnColor) {
         for (let i = 1; i < 8; i++) {
           if (board[y + direction[0] * i][x + direction[1] * i] === 3 - turnColor) {
@@ -49,7 +49,7 @@ const Home = () => {
             setTurnColor(3 - turnColor);
             setBoard(newBoard);
             console.log(memoryPosision);
-            var checkRun = 'False';
+            // var checkRun = 'False';
 
             break;
           } else {
