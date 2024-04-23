@@ -26,34 +26,32 @@ const Home = () => {
   ]);
   const clickHandler = (x: number, y: number) => {
     console.log(x, y);
+    if (board[y][x] !== 1 && board[y][x] !== 2) {
+      const newBoard = structuredClone(board);
+      for (const direction of directions) {
+        const memoryPosision = [];
+        // if (checkRun === 'False') {
+        //   break;
+        // }
+        if (board[y + direction[0]][x + direction[1]] === 3 - turnColor) {
+          for (let i = 1; i < 8; i++) {
+            if (board[y + direction[0] * i][x + direction[1] * i] === 3 - turnColor) {
+              memoryPosision[memoryPosision.length] = [y + direction[0] * i, x + direction[1] * i];
+              console.log([y + direction[0] * i], [x + direction[1] * i]);
+              continue;
+            } else if (board[y + direction[0] * i][x + direction[1] * i] === turnColor) {
+              newBoard[y][x] = turnColor;
+              for (const posision of memoryPosision) {
+                newBoard[posision[0]][posision[1]] = turnColor;
+              }
+              setTurnColor(3 - turnColor);
+              setBoard(newBoard);
+              console.log(memoryPosision);
 
-    // var checkRun = 'True';
-    const newBoard = structuredClone(board);
-    for (const direction of directions) {
-      const memoryPosision = [];
-      // if (checkRun === 'False') {
-      //   break;
-      // }
-      if (board[y + direction[0]][x + direction[1]] === 3 - turnColor) {
-        for (let i = 1; i < 8; i++) {
-          if (board[y + direction[0] * i][x + direction[1] * i] === 3 - turnColor) {
-            memoryPosision[memoryPosision.length] = [y + direction[0] * i, x + direction[1] * i];
-            console.log([y + direction[0] * i], [x + direction[1] * i]);
-            // console.log(memoryPosision);
-            continue;
-          } else if (board[y + direction[0] * i][x + direction[1] * i] === turnColor) {
-            newBoard[y][x] = turnColor;
-            for (const posision of memoryPosision) {
-              newBoard[posision[0]][posision[1]] = turnColor;
+              break;
+            } else {
+              break;
             }
-            setTurnColor(3 - turnColor);
-            setBoard(newBoard);
-            console.log(memoryPosision);
-            // var checkRun = 'False';
-
-            break;
-          } else {
-            break;
           }
         }
       }
