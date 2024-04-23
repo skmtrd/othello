@@ -37,26 +37,26 @@ const Home = () => {
         ) {
           for (let i = 1; i < 8; i++) {
             if (
-              newBoard[x + direction[1] * i] !== undefined &&
               newBoard[y + direction[0] * i] !== undefined &&
-              newBoard[y + direction[0] * i][x + direction[1] * i] === 3 - turnColor
+              newBoard[x + direction[1] * i] !== undefined
             ) {
-              memoryPosision[memoryPosision.length] = [y + direction[0] * i, x + direction[1] * i];
-              continue;
-            } else if (
-              newBoard[x + direction[1] * i] !== undefined &&
-              newBoard[y + direction[0] * i] !== undefined &&
-              newBoard[y + direction[0] * i][x + direction[1] * i] === turnColor
-            ) {
-              newBoard[y][x] = turnColor;
-              for (const posision of memoryPosision) {
-                newBoard[posision[0]][posision[1]] = turnColor;
+              if (newBoard[y + direction[0] * i][x + direction[1] * i] === 3 - turnColor) {
+                memoryPosision[memoryPosision.length] = [
+                  y + direction[0] * i,
+                  x + direction[1] * i,
+                ];
+                continue;
+              } else if (newBoard[y + direction[0] * i][x + direction[1] * i] === turnColor) {
+                newBoard[y][x] = turnColor;
+                for (const posision of memoryPosision) {
+                  newBoard[posision[0]][posision[1]] = turnColor;
+                }
+                setTurnColor(3 - turnColor);
+                setBoard(newBoard);
+                break;
+              } else {
+                break;
               }
-              setTurnColor(3 - turnColor);
-              setBoard(newBoard);
-              break;
-            } else {
-              break;
             }
           }
         }
