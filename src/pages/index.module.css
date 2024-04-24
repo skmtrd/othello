@@ -44,3 +44,13 @@
   height: 60px;
   background-color: black;
 }
+
+.canPlacePointStyle {
+  display: flex;
+  width: 30px;
+  height: 30px;
+  background-color: cornflowerblue;
+  border: solid;
+  border-width: 1px;
+  border-radius: 50%;
+}
