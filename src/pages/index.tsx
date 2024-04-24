@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import styles from './index.module.css';
-
 const directions = [
   [1, 0],
   [1, 1],
@@ -11,7 +10,7 @@ const directions = [
   [0, -1],
   [1, -1],
 ];
-
+const stoneNum = [2, 2];
 const Home = () => {
   const [turnColor, setTurnColor] = useState(1);
   const [board, setBoard] = useState([
@@ -25,6 +24,7 @@ const Home = () => {
     [0, 0, 0, 0, 0, 0, 0, 0],
   ]);
   const clickHandler = (x: number, y: number) => {
+    // console.log(stoneNum);
     console.log(x, y);
     if (board[y][x] === 0) {
       const newBoard = structuredClone(board);
@@ -53,6 +53,15 @@ const Home = () => {
                 }
                 setTurnColor(3 - turnColor);
                 setBoard(newBoard);
+                stoneNum[0] = 0;
+                stoneNum[1] = 0;
+                for (const rows of newBoard) {
+                  for (let i = 0; i < 8; i++) {
+                    if (rows[i] !== 0) {
+                      rows[i] === 1 ? stoneNum[0]++ : stoneNum[1]++;
+                    }
+                  }
+                }
                 break;
               } else {
                 break;
@@ -62,9 +71,14 @@ const Home = () => {
         }
       }
     }
+    console.log(stoneNum);
   };
   return (
     <div className={styles.container}>
+      <div>
+        blackStone:{stoneNum[0]} whitestone:{stoneNum[1]}
+      </div>
+      <div>{turnColor === 1 ? "Black's" : "White's"} turn</div>
       <div className={styles.boardStyle}>
         {board.map((row, y) =>
           row.map((color, x) => (

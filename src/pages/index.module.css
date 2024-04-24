@@ -37,3 +37,10 @@
   border-width: 1px;
   border-radius: 50%;
 }
+
+.turnContainerStyle {
+  display: flex;
+  width: 100px;
+  height: 60px;
+  background-color: black;
+}
