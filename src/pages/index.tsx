@@ -10,7 +10,7 @@ const directions = [
   [0, -1],
   [1, -1],
 ];
-const stoneNum = [2, 2];
+const stoneNum = [2, 2, 4];
 const Home = () => {
   const [turnColor, setTurnColor] = useState(1);
   const [board, setBoard] = useState([
@@ -26,27 +26,15 @@ const Home = () => {
   const clickHandler = (x: number, y: number) => {
     const canPlacePoint = [];
     const newBoard = structuredClone(board);
-    // for (let i = 0; i < 8; i++) {
-    //   //３になっているものを０に直す
-    //   for (let j = 0; j < 8; j++) {
-    //     if (newBoard[i][j] === 3) {
-    //       newBoard[i][j] = 0;
-    //     }
-    //   }
-    // }
     function checkCanPlace(y, x) {
       if (newBoard[y][x] === 0 || newBoard[y][x] === 3) {
         for (const direction of directions) {
           if (
             newBoard[y + direction[0]] !== undefined &&
-            newBoard[x + direction[1]] !== undefined &&
             newBoard[y + direction[0]][x + direction[1]] === turnColor
           ) {
             for (let i = 1; i < 9; i++) {
-              if (
-                newBoard[y + direction[0] * i] !== undefined &&
-                newBoard[x + direction[1] * i] !== undefined
-              ) {
+              if (newBoard[y + direction[0] * i] !== undefined) {
                 if (newBoard[y + direction[0] * i][x + direction[1] * i] === turnColor) {
                   continue;
                 } else if (newBoard[y + direction[0] * i][x + direction[1] * i] === 3 - turnColor) {
@@ -65,14 +53,10 @@ const Home = () => {
         const memoryPosision = [];
         if (
           newBoard[y + direction[0]] !== undefined &&
-          newBoard[x + direction[1]] !== undefined &&
           newBoard[y + direction[0]][x + direction[1]] === 3 - turnColor
         ) {
           for (let i = 1; i < 8; i++) {
-            if (
-              newBoard[y + direction[0] * i] !== undefined &&
-              newBoard[x + direction[1] * i] !== undefined
-            ) {
+            if (newBoard[y + direction[0] * i] !== undefined) {
               if (newBoard[y + direction[0] * i][x + direction[1] * i] === 3 - turnColor) {
                 memoryPosision[memoryPosision.length] = [
                   y + direction[0] * i,
@@ -95,7 +79,6 @@ const Home = () => {
                     }
                   }
                 }
-                console.log(newBoard);
                 for (let i = 0; i < 8; i++) {
                   //０である置くことが可能な位置を調べる、可能であればリストに格納する
                   for (let j = 0; j < 8; j++) {
@@ -117,10 +100,13 @@ const Home = () => {
                 setBoard(newBoard);
                 stoneNum[0] = 0;
                 stoneNum[1] = 0;
+                stoneNum[2] = 0;
                 for (const rows of newBoard) {
                   for (let i = 0; i < 8; i++) {
                     if (rows[i] !== 0 && rows[i] !== 3) {
                       rows[i] === 1 ? stoneNum[0]++ : stoneNum[1]++;
+                    } else if (rows[i] === 3) {
+                      stoneNum[2]++;
                     }
                   }
                 }
@@ -136,10 +122,19 @@ const Home = () => {
   };
   return (
     <div className={styles.container}>
-      <div>
+      <div className={styles.scoreBoardStyle}>
+        <div className={styles.blackScoreStyle}>
+          <div className={styles.displayStrings}>Black</div>
+          <div className={styles.displayStrings}>{turnColor === 1 ? 'yourturn' : ''}</div>
+        </div>
+        <div className={styles.whiteScoreStyle}>
+          <div className={styles.displayStrings}>White</div>
+        </div>
+      </div>
+      {/* <div>
         black:{stoneNum[0]} white:{stoneNum[1]}
       </div>
-      <div>{turnColor === 1 ? "Black's" : "White's"} turn</div>
+      <div>{turnColor === 1 ? "Black's" : "White's"} turn</div> */}
       <div className={styles.boardStyle}>
         {board.map((row, y) =>
           row.map((color, x) => (
