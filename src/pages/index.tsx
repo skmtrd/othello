@@ -26,14 +26,14 @@ const Home = () => {
   const clickHandler = (x: number, y: number) => {
     const canPlacePoint = [];
     const newBoard = structuredClone(board);
-    function checkCanPlace(y, x) {
+    function checkCanPlace(y: number, x: number) {
       if (newBoard[y][x] === 0 || newBoard[y][x] === 3) {
         for (const direction of directions) {
           if (
             newBoard[y + direction[0]] !== undefined &&
             newBoard[y + direction[0]][x + direction[1]] === turnColor
           ) {
-            for (let i = 1; i < 9; i++) {
+            for (let i = 2; i < 9; i++) {
               if (newBoard[y + direction[0] * i] !== undefined) {
                 if (newBoard[y + direction[0] * i][x + direction[1] * i] === turnColor) {
                   continue;
@@ -142,7 +142,7 @@ const Home = () => {
               {color !== 0 && color !== 3 && (
                 <div
                   className={styles.stoneStyle}
-                  style={{ background: color === 1 ? '#000' : '#fff' }}
+                  style={{ background: color === 1 ? '#393939' : '#fff' }}
                 />
               )}
               {color === 3 && <div className={styles.canPlacePointStyle} />}

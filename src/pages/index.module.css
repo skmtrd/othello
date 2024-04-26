@@ -6,6 +6,7 @@
   height: 100vh;
   min-height: 100vh;
   padding: 0 0.5rem;
+  background-color: rgb(248 221 226);
 }
 
 .boardStyle {
@@ -13,7 +14,6 @@
   flex-wrap: wrap;
   width: 640px;
   height: 640px;
-  background-color: green;
 }
 
 .cellStyle {
@@ -22,37 +22,37 @@
   justify-content: center;
   width: 80px;
   height: 80px;
+  background-color: rgb(245 190 190);
   border: solid;
-  border-color: black;
-  border-width: 1px;
+  border-color: white;
+  border-width: 2px;
+  border-radius: 15%;
+  box-shadow: 5px 5px 5px -5px rgb(0 0 0 / 20%);
 }
 
 .stoneStyle {
   display: flex;
-  width: 60px;
-  height: 60px;
+  width: 55px;
+  height: 55px;
   background-color: white;
-  border: solid;
-  border-color: black;
-  border-width: 1px;
   border-radius: 50%;
+  box-shadow: 8px 5px 5px -5px rgb(89 74 74 / 20%);
 }
 
 .turnContainerStyle {
   display: flex;
   width: 100px;
   height: 60px;
-  background-color: black;
+  background-color: rgb(49 4 4);
 }
 
 .canPlacePointStyle {
   display: flex;
   width: 30px;
   height: 30px;
-  background-color: cornflowerblue;
-  border: solid;
-  border-width: 1px;
+  background-color: rgb(171 191 230);
   border-radius: 50%;
+  box-shadow: 5px 5px 5px -5px rgb(0 0 0 / 20%);
 }
 
 .finishBoard {
