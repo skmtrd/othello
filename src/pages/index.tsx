@@ -80,9 +80,7 @@ const Home = () => {
                   }
                 }
                 for (let i = 0; i < 8; i++) {
-                  //０である置くことが可能な位置を調べる、可能であればリストに格納する
                   for (let j = 0; j < 8; j++) {
-                    console.log(i, j);
                     if (checkCanPlace(i, j) === 'True') {
                       canPlacePoint[canPlacePoint.length] = [i, j];
                       console.log('passed');
@@ -122,19 +120,6 @@ const Home = () => {
   };
   return (
     <div className={styles.container}>
-      <div className={styles.scoreBoardStyle}>
-        <div className={styles.blackScoreStyle}>
-          <div className={styles.displayStrings}>Black</div>
-          <div className={styles.displayStrings}>{turnColor === 1 ? 'yourturn' : ''}</div>
-        </div>
-        <div className={styles.whiteScoreStyle}>
-          <div className={styles.displayStrings}>White</div>
-        </div>
-      </div>
-      {/* <div>
-        black:{stoneNum[0]} white:{stoneNum[1]}
-      </div>
-      <div>{turnColor === 1 ? "Black's" : "White's"} turn</div> */}
       <div className={styles.boardStyle}>
         {board.map((row, y) =>
           row.map((color, x) => (
@@ -149,6 +134,52 @@ const Home = () => {
             </div>
           )),
         )}
+      </div>
+      <div className={styles.scoreBoardStyle}>
+        <div className={styles.turnSwitcher}>
+          <div
+            className={styles.displayStrings}
+            style={{
+              color: 'white',
+              fontSize: 25,
+              marginTop: 10.5,
+              fontFamily: 'Arial Rounded MT',
+            }}
+          >
+            Turn
+          </div>
+          <div
+            className={styles.stoneStyle}
+            style={{ background: turnColor === 1 ? '#393939' : '#fff', marginLeft: 5 }}
+          />
+        </div>
+        <div className={styles.stoneNumBoardStyle}>
+          <div className={styles.stoneNumStyle} style={{ marginLeft: 30 }}>
+            <div
+              className={styles.stoneNumStyle}
+              style={{
+                color: 'white',
+                fontSize: 25,
+                marginTop: 10.5,
+                fontFamily: 'Arial Rounded MT',
+              }}
+            >
+              Black:{stoneNum[0]}
+            </div>
+            <div
+              className={styles.stoneNumStyle}
+              style={{
+                color: 'white',
+                fontSize: 25,
+                marginTop: 10.5,
+                marginLeft: 80,
+                fontFamily: 'Arial Rounded MT',
+              }}
+            >
+              White:{stoneNum[1]}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
