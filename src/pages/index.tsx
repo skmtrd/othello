@@ -10,7 +10,59 @@ const directions = [
   [0, -1],
   [1, -1],
 ];
+const invertPosition = [];
 const stoneNum = [2, 2, 4];
+//置くことが可能か判断する関数
+const checkCanPut = (x: number, y: number, board, turnColor) => {
+  if (board[y][x] === 1 || board[y][x] === 2) return false;
+  let canPut: boolean = false;
+  invertPosition.length = 0;
+  for (const direction of directions) {
+    let alreadyFindEnemy: boolean = false;
+    const preInvertPosition = [];
+    for (let i = 1; i < 9; i++) {
+      const vertical = y + direction[0] * i;
+      const horizontal = x + direction[1] * i;
+      if (board[vertical] !== undefined) {
+        if (board[vertical][horizontal] === turnColor && alreadyFindEnemy === true) {
+          for (const row of preInvertPosition) {
+            invertPosition.push(row);
+          }
+          canPut = true;
+        } else if (board[vertical][horizontal] === 3 - turnColor) {
+          preInvertPosition.push([vertical, horizontal]);
+          alreadyFindEnemy = true;
+        } else break;
+      }
+    }
+  }
+  if (canPut === true) return true;
+};
+
+//色の変更を担う関数
+const reloadBoard = (x, y, board, turnColor) => {
+  board[y][x] = turnColor;
+  for (const cell of invertPosition) {
+    board[cell[0]][cell[1]] = turnColor;
+  }
+  for (let s = 0; s < 3; s++) stoneNum[s] = 0;
+  for (let j = 0; j < 8; j++) {
+    for (let i = 0; i < 8; i++) {
+      if (board[i][j] === 1) stoneNum[0]++;
+      if (board[i][j] === 2) stoneNum[1]++;
+      if (board[i][j] === 3) {
+        stoneNum[2]++;
+        board[i][j] = 0;
+      }
+      if (checkCanPut(j, i, board, 3 - turnColor) === true) {
+        console.log('pass');
+        board[i][j] = 3;
+      }
+    }
+  }
+  return board;
+};
+
 const Home = () => {
   const [turnColor, setTurnColor] = useState(1);
   const [board, setBoard] = useState([
@@ -19,103 +71,15 @@ const Home = () => {
     [0, 0, 0, 0, 3, 0, 0, 0],
     [0, 0, 0, 1, 2, 3, 0, 0],
     [0, 0, 3, 2, 1, 0, 0, 0],
-    [0, 0, 0, 3, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 3, 0, 0, -0, 0],
+    [0, 0, 0, 0, 0, 0, -0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
   ]);
   const clickHandler = (x: number, y: number) => {
-    const canPlacePoint = [];
     const newBoard = structuredClone(board);
-    function checkCanPlace(y: number, x: number) {
-      if (newBoard[y][x] === 0 || newBoard[y][x] === 3) {
-        for (const direction of directions) {
-          if (
-            newBoard[y + direction[0]] !== undefined &&
-            newBoard[y + direction[0]][x + direction[1]] === turnColor
-          ) {
-            for (let i = 2; i < 9; i++) {
-              if (newBoard[y + direction[0] * i] !== undefined) {
-                if (newBoard[y + direction[0] * i][x + direction[1] * i] === turnColor) {
-                  continue;
-                } else if (newBoard[y + direction[0] * i][x + direction[1] * i] === 3 - turnColor) {
-                  return 'True';
-                } else {
-                  break;
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-    if (board[y][x] === 0 || board[y][x] === 3) {
-      for (const direction of directions) {
-        const memoryPosision = [];
-        if (
-          newBoard[y + direction[0]] !== undefined &&
-          newBoard[y + direction[0]][x + direction[1]] === 3 - turnColor
-        ) {
-          for (let i = 1; i < 8; i++) {
-            if (newBoard[y + direction[0] * i] !== undefined) {
-              if (newBoard[y + direction[0] * i][x + direction[1] * i] === 3 - turnColor) {
-                memoryPosision[memoryPosision.length] = [
-                  y + direction[0] * i,
-                  x + direction[1] * i,
-                ];
-                continue;
-              } else if (newBoard[y + direction[0] * i][x + direction[1] * i] === turnColor) {
-                newBoard[y][x] = turnColor; //クリックしたところを自分の色にする
-                for (const posision of memoryPosision) {
-                  //ひっくり返し
-                  newBoard[posision[0]][posision[1]] = turnColor;
-                }
-                console.log(newBoard);
-                for (let i = 0; i < 8; i++) {
-                  //３になっているものを０に直す
-                  for (let j = 0; j < 8; j++) {
-                    if (newBoard[i][j] === 3) {
-                      newBoard[i][j] = 0;
-                      console.log('pass');
-                    }
-                  }
-                }
-                for (let i = 0; i < 8; i++) {
-                  for (let j = 0; j < 8; j++) {
-                    if (checkCanPlace(i, j) === 'True') {
-                      canPlacePoint[canPlacePoint.length] = [i, j];
-                      console.log('passed');
-                      // newBoard[i][j] = 3;
-                    }
-                  }
-                }
-                // console.log(canPlacePoint);
-                console.log(canPlacePoint);
-                for (const point of canPlacePoint) {
-                  //格納された配置可能な座標を３にする
-                  newBoard[point[0]][point[1]] = 3;
-                }
-                setTurnColor(3 - turnColor);
-                setBoard(newBoard);
-                stoneNum[0] = 0;
-                stoneNum[1] = 0;
-                stoneNum[2] = 0;
-                for (const rows of newBoard) {
-                  for (let i = 0; i < 8; i++) {
-                    if (rows[i] !== 0 && rows[i] !== 3) {
-                      rows[i] === 1 ? stoneNum[0]++ : stoneNum[1]++;
-                    } else if (rows[i] === 3) {
-                      stoneNum[2]++;
-                    }
-                  }
-                }
-                break;
-              } else {
-                break;
-              }
-            }
-          }
-        }
-      }
+    if (checkCanPut(x, y, newBoard, turnColor) === true) {
+      setBoard(reloadBoard(x, y, newBoard, turnColor));
+      setTurnColor(3 - turnColor);
     }
   };
   return (
