@@ -10,6 +10,7 @@ const directions = [
   [0, -1],
   [1, -1],
 ];
+const countSkip = [0, 0];
 const invertPosition = [];
 const stoneNum = [2, 2, 4];
 //置くことが可能か判断する関数
@@ -50,13 +51,10 @@ const reloadBoard = (x, y, board, turnColor) => {
     for (let i = 0; i < 8; i++) {
       if (board[i][j] === 1) stoneNum[0]++;
       if (board[i][j] === 2) stoneNum[1]++;
-      if (board[i][j] === 3) {
-        stoneNum[2]++;
-        board[i][j] = 0;
-      }
+      if (board[i][j] === 3) board[i][j] = 0;
       if (checkCanPut(j, i, board, 3 - turnColor) === true) {
-        console.log('pass');
         board[i][j] = 3;
+        stoneNum[2]++;
       }
     }
   }
@@ -66,13 +64,21 @@ const reloadBoard = (x, y, board, turnColor) => {
 const Home = () => {
   const [turnColor, setTurnColor] = useState(1);
   const [board, setBoard] = useState([
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 3, 0, 0, 0],
-    [0, 0, 0, 1, 2, 3, 0, 0],
-    [0, 0, 3, 2, 1, 0, 0, 0],
-    [0, 0, 0, 3, 0, 0, -0, 0],
-    [0, 0, 0, 0, 0, 0, -0, 0],
+    // [0, 0, 0, 0, 0, 0, 0, 0],
+    // [0, 0, 0, 0, 0, 0, 0, 0],
+    // [0, 0, 0, 0, 3, 0, 0, 0],
+    // [0, 0, 0, 1, 2, 3, 0, 0],
+    // [0, 0, 3, 2, 1, 0, 0, 0],
+    // [0, 0, 0, 3, 0, 0, 0, 0],
+    // [0, 0, 0, 0, 0, 0, 0, 0],
+    // [0, 0, 0, 0, 0, 0, 0, 0],
+    [1, 0, 2, 0, 1, 0, 2, 0],
+    [2, 0, 1, 0, 2, 0, 1, 0],
+    [2, 0, 1, 0, 2, 0, 1, 0],
+    [0, 0, 0, 0, 0, 0, 1, 0],
+    [0, 0, 3, 0, 0, 0, 0, 0],
+    [0, 0, 0, 3, 0, 0, 0, 0],
+    [2, 1, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
   ]);
   const clickHandler = (x: number, y: number) => {
@@ -80,6 +86,12 @@ const Home = () => {
     if (checkCanPut(x, y, newBoard, turnColor) === true) {
       setBoard(reloadBoard(x, y, newBoard, turnColor));
       setTurnColor(3 - turnColor);
+      console.log(stoneNum[2]);
+
+      if (stoneNum[2] === 0) {
+        countSkip[3 - turnColor - 1]++;
+        setTurnColor(turnColor);
+      }
     }
   };
   return (
@@ -118,30 +130,71 @@ const Home = () => {
           />
         </div>
         <div className={styles.stoneNumBoardStyle}>
-          <div className={styles.stoneNumStyle} style={{ marginLeft: 30 }}>
-            <div
-              className={styles.stoneNumStyle}
-              style={{
-                color: 'white',
-                fontSize: 25,
-                marginTop: 10.5,
-                fontFamily: 'Arial Rounded MT',
-              }}
-            >
-              Black:{stoneNum[0]}
-            </div>
-            <div
-              className={styles.stoneNumStyle}
-              style={{
-                color: 'white',
-                fontSize: 25,
-                marginTop: 10.5,
-                marginLeft: 80,
-                fontFamily: 'Arial Rounded MT',
-              }}
-            >
-              White:{stoneNum[1]}
-            </div>
+          <div
+            className={styles.stoneNumStyle}
+            style={{
+              color: 'white',
+              fontSize: 25,
+              marginTop: 10.5,
+              marginLeft: 40,
+              fontFamily: 'Arial Rounded MT',
+            }}
+          >
+            Black:{stoneNum[0]}
+          </div>
+          <div
+            className={styles.stoneNumStyle}
+            style={{
+              color: 'white',
+              fontSize: 25,
+              marginTop: 10.5,
+              marginLeft: 68,
+              fontFamily: 'Arial Rounded MT',
+            }}
+          >
+            White:{stoneNum[1]}
+          </div>
+          {/* <div
+            className={styles.stoneNumStyle}
+            style={{
+              color: 'white',
+              fontSize: 15,
+              marginTop: 40,
+              fontFamily: 'Arial Rounded MT',
+            }}
+          >
+            Skip1:{stoneNum[0]}
+          </div> */}
+        </div>
+        <div
+          className={styles.skipCountBoardStyle}
+          style={{
+            color: 'white',
+            fontSize: 15,
+            fontFamily: 'Arial Rounded MT',
+          }}
+        >
+          <div
+            className={styles.displayStrings}
+            style={{
+              color: 'white',
+              fontSize: 20,
+              marginLeft: 70,
+              fontFamily: 'Arial Rounded MT',
+            }}
+          >
+            ({countSkip[0]})
+          </div>
+          <div
+            className={styles.displayStrings}
+            style={{
+              color: 'white',
+              fontSize: 20,
+              fontFamily: 'Arial Rounded MT',
+              marginLeft: 70,
+            }}
+          >
+            ({countSkip[1]})
           </div>
         </div>
       </div>

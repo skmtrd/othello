@@ -23,7 +23,7 @@
   height: 80px;
   background-color: rgb(245 190 190);
   border: solid;
-  border-color: white;
+  border-color: rgb(255 233 233);
   border-width: 2px;
   border-radius: 15%;
   box-shadow: 5px 5px 5px -5px rgb(0 0 0 / 20%);
@@ -59,29 +59,34 @@
   height: 300px;
   margin-left: 100px;
   background-color: rgb(231 157 157);
+  border: solid;
+  border-color: rgb(235 206 206);
+  border-width: 2px;
   border-radius: 10%;
+  box-shadow: 5px 5px 5px -5px rgb(0 0 0 / 20%);
 }
 
 .displayStrings {
   width: 60px;
   height: 30px;
-  margin-left: 35px;
 }
 
 .turnSwitcher {
   display: flex;
   width: 160px;
-  height: 80px;
+  height: 6D0px;
   margin-top: 40px;
   margin-left: 55px;
+  border: solid;
   border-radius: 15px;
 }
 
 .stoneNumBoardStyle {
   display: flex;
   width: 300px;
-  height: 80px;
-  margin-top: 20px;
+  height: 50px;
+  margin-top: 1px;
+  border: solid;
   border-radius: 15px;
 }
 
@@ -89,4 +94,11 @@
   display: flex;
   width: 60px;
   height: 30px;
+}
+
+.skipCountBoardStyle {
+  display: flex;
+  width: 300px;
+  height: 30px;
+  border: solid;
 }
