@@ -10,11 +10,12 @@ const directions = [
   [0, -1],
   [1, -1],
 ];
+const judgeFinish = [];
 const countSkip = [0, 0];
-const invertPosition = [];
+const invertPosition: number[][] = [];
 const stoneNum = [2, 2, 4];
 //置くことが可能か判断する関数
-const checkCanPut = (x: number, y: number, board, turnColor) => {
+const checkCanPut = (x: number, y: number, board: number[][], turnColor: number) => {
   if (board[y][x] === 1 || board[y][x] === 2) return false;
   let canPut: boolean = false;
   invertPosition.length = 0;
@@ -25,11 +26,12 @@ const checkCanPut = (x: number, y: number, board, turnColor) => {
       const vertical = y + direction[0] * i;
       const horizontal = x + direction[1] * i;
       if (board[vertical] !== undefined) {
-        if (board[vertical][horizontal] === turnColor && alreadyFindEnemy === true) {
+        if (board[vertical][horizontal] === turnColor && alreadyFindEnemy) {
           for (const row of preInvertPosition) {
             invertPosition.push(row);
           }
           canPut = true;
+          break;
         } else if (board[vertical][horizontal] === 3 - turnColor) {
           preInvertPosition.push([vertical, horizontal]);
           alreadyFindEnemy = true;
@@ -37,11 +39,11 @@ const checkCanPut = (x: number, y: number, board, turnColor) => {
       }
     }
   }
-  if (canPut === true) return true;
+  if (canPut) return true;
 };
 
 //色の変更を担う関数
-const reloadBoard = (x, y, board, turnColor) => {
+const reloadBoard = (x: number, y: number, board: number[][], turnColor: number) => {
   board[y][x] = turnColor;
   for (const cell of invertPosition) {
     board[cell[0]][cell[1]] = turnColor;
@@ -64,22 +66,22 @@ const reloadBoard = (x, y, board, turnColor) => {
 const Home = () => {
   const [turnColor, setTurnColor] = useState(1);
   const [board, setBoard] = useState([
-    // [0, 0, 0, 0, 0, 0, 0, 0],
-    // [0, 0, 0, 0, 0, 0, 0, 0],
-    // [0, 0, 0, 0, 3, 0, 0, 0],
-    // [0, 0, 0, 1, 2, 3, 0, 0],
-    // [0, 0, 3, 2, 1, 0, 0, 0],
-    // [0, 0, 0, 3, 0, 0, 0, 0],
-    // [0, 0, 0, 0, 0, 0, 0, 0],
-    // [0, 0, 0, 0, 0, 0, 0, 0],
-    [1, 0, 2, 0, 1, 0, 2, 0],
-    [2, 0, 1, 0, 2, 0, 1, 0],
-    [2, 0, 1, 0, 2, 0, 1, 0],
-    [0, 0, 0, 0, 0, 0, 1, 0],
-    [0, 0, 3, 0, 0, 0, 0, 0],
-    [0, 0, 0, 3, 0, 0, 0, 0],
-    [2, 1, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 3, 0, 0, 0],
+    [0, 0, 0, 1, 2, 3, 0, 0],
+    [0, 0, 3, 2, 1, 0, 0, 2],
+    [0, 0, 0, 3, 0, 0, 0, 1],
+    [0, 0, 0, 0, 0, 0, 0, 2],
+    [0, 0, 0, 0, 0, 0, 0, 1],
+    // [1, 0, 2, 0, 1, 0, 2, 0],
+    // [2, 0, 1, 0, 2, 0, 1, 0],
+    // [2, 0, 1, 0, 2, 0, 1, 0],
+    // [0, 0, 0, 0, 0, 0, 1, 0],
+    // [0, 0, 3, 0, 0, 0, 0, 0],
+    // [0, 0, 0, 3, 0, 0, 0, 0],
+    // [2, 1, 0, 0, 0, 0, 0, 0],
+    // [0, 0, 0, 0, 0, 0, 0, 0],
   ]);
   const clickHandler = (x: number, y: number) => {
     const newBoard = structuredClone(board);
@@ -91,6 +93,9 @@ const Home = () => {
       if (stoneNum[2] === 0) {
         countSkip[3 - turnColor - 1]++;
         setTurnColor(turnColor);
+      }
+      if (countSkip[0] === 2 || countSkip[1] === 2) {
+        judgeFinish.push(1);
       }
     }
   };
@@ -154,26 +159,8 @@ const Home = () => {
           >
             White:{stoneNum[1]}
           </div>
-          {/* <div
-            className={styles.stoneNumStyle}
-            style={{
-              color: 'white',
-              fontSize: 15,
-              marginTop: 40,
-              fontFamily: 'Arial Rounded MT',
-            }}
-          >
-            Skip1:{stoneNum[0]}
-          </div> */}
         </div>
-        <div
-          className={styles.skipCountBoardStyle}
-          style={{
-            color: 'white',
-            fontSize: 15,
-            fontFamily: 'Arial Rounded MT',
-          }}
-        >
+        <div className={styles.skipCountBoardStyle}>
           <div
             className={styles.displayStrings}
             style={{
@@ -196,6 +183,17 @@ const Home = () => {
           >
             ({countSkip[1]})
           </div>
+        </div>
+        <div
+          className={styles.displayStrings}
+          style={{
+            color: 'white',
+            fontSize: 50,
+            fontFamily: 'Arial Rounded MT',
+            marginLeft: 75,
+          }}
+        >
+          {judgeFinish.length === 1 ? 'Finish' : ''}
         </div>
       </div>
     </div>
