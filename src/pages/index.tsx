@@ -39,7 +39,7 @@ const checkCanPut = (x: number, y: number, board: number[][], turnColor: number)
       }
     }
   }
-  if (canPut) return true;
+  return canPut;
 };
 
 //色の変更を担う関数
