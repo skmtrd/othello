@@ -11,8 +11,8 @@ const directions = [
   [1, -1],
 ];
 const judgeFinish = [];
-const countSkip = [0, 0];
 const invertPosition: number[][] = [];
+const countSkip = [0, 0];
 const stoneNum = [2, 2, 4];
 //置くことが可能か判断する関数
 const checkCanPut = (x: number, y: number, board: number[][], turnColor: number) => {
@@ -66,14 +66,14 @@ const reloadBoard = (x: number, y: number, board: number[][], turnColor: number)
 const Home = () => {
   const [turnColor, setTurnColor] = useState(1);
   const [board, setBoard] = useState([
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 3, 0, 0, 0],
-    [0, 0, 0, 1, 2, 3, 0, 0],
-    [0, 0, 3, 2, 1, 0, 0, 2],
-    [0, 0, 0, 3, 0, 0, 0, 1],
-    [0, 0, 0, 0, 0, 0, 0, 2],
-    [0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 2, 0, 0, 0, 0, 0, 1],
     // [1, 0, 2, 0, 1, 0, 2, 0],
     // [2, 0, 1, 0, 2, 0, 1, 0],
     // [2, 0, 1, 0, 2, 0, 1, 0],
@@ -85,15 +85,12 @@ const Home = () => {
   ]);
   const clickHandler = (x: number, y: number) => {
     const newBoard = structuredClone(board);
+
     if (checkCanPut(x, y, newBoard, turnColor) === true) {
       setBoard(reloadBoard(x, y, newBoard, turnColor));
       setTurnColor(3 - turnColor);
       console.log(stoneNum[2]);
 
-      if (stoneNum[2] === 0) {
-        countSkip[3 - turnColor - 1]++;
-        setTurnColor(turnColor);
-      }
       if (countSkip[0] === 2 || countSkip[1] === 2) {
         judgeFinish.push(1);
       }
