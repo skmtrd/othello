@@ -10,7 +10,6 @@ const directions = [
   [0, -1],
   [1, -1],
 ];
-const judgeFinish = [];
 const invertPosition: number[][] = [];
 const countSkip = [0, 0];
 const stoneNum = [2, 2, 4];
@@ -147,7 +146,6 @@ const Home = () => {
           <div className={styles.displayStrings}>({countSkip[0]})</div>
           <div className={styles.displayStrings}>({countSkip[1]})</div>
         </div>
-        <div className={styles.displayStrings}>{judgeFinish.length === 1 ? 'Finish' : ''}</div>
       </div>
     </div>
   );
