@@ -69,15 +69,18 @@
 .displayStrings {
   width: 60px;
   height: 30px;
+  margin-left: 70px;
+  font-family: 'Arial Rounded MT';
+  font-size: 20px;
+  color: white;
 }
 
 .turnSwitcher {
   display: flex;
   width: 160px;
-  height: 6D0px;
+  height: 60px;
   margin-top: 40px;
   margin-left: 55px;
-  border: solid;
   border-radius: 15px;
 }
 
@@ -86,7 +89,6 @@
   width: 300px;
   height: 50px;
   margin-top: 1px;
-  border: solid;
   border-radius: 15px;
 }
 
@@ -94,11 +96,14 @@
   display: flex;
   width: 60px;
   height: 30px;
+  margin-top: 10.5px;
+  font-family: 'Arial Rounded MT';
+  font-size: 25px;
+  color: white;
 }
 
 .skipCountBoardStyle {
   display: flex;
   width: 300px;
   height: 30px;
-  border: solid;
 }

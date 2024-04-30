@@ -118,10 +118,9 @@ const Home = () => {
           <div
             className={styles.displayStrings}
             style={{
-              color: 'white',
               fontSize: 25,
               marginTop: 10.5,
-              fontFamily: 'Arial Rounded MT',
+              marginLeft: 30,
             }}
           >
             Turn
@@ -135,11 +134,7 @@ const Home = () => {
           <div
             className={styles.stoneNumStyle}
             style={{
-              color: 'white',
-              fontSize: 25,
-              marginTop: 10.5,
               marginLeft: 40,
-              fontFamily: 'Arial Rounded MT',
             }}
           >
             Black:{stoneNum[0]}
@@ -147,51 +142,17 @@ const Home = () => {
           <div
             className={styles.stoneNumStyle}
             style={{
-              color: 'white',
-              fontSize: 25,
-              marginTop: 10.5,
               marginLeft: 68,
-              fontFamily: 'Arial Rounded MT',
             }}
           >
             White:{stoneNum[1]}
           </div>
         </div>
         <div className={styles.skipCountBoardStyle}>
-          <div
-            className={styles.displayStrings}
-            style={{
-              color: 'white',
-              fontSize: 20,
-              marginLeft: 70,
-              fontFamily: 'Arial Rounded MT',
-            }}
-          >
-            ({countSkip[0]})
-          </div>
-          <div
-            className={styles.displayStrings}
-            style={{
-              color: 'white',
-              fontSize: 20,
-              fontFamily: 'Arial Rounded MT',
-              marginLeft: 70,
-            }}
-          >
-            ({countSkip[1]})
-          </div>
+          <div className={styles.displayStrings}>({countSkip[0]})</div>
+          <div className={styles.displayStrings}>({countSkip[1]})</div>
         </div>
-        <div
-          className={styles.displayStrings}
-          style={{
-            color: 'white',
-            fontSize: 50,
-            fontFamily: 'Arial Rounded MT',
-            marginLeft: 75,
-          }}
-        >
-          {judgeFinish.length === 1 ? 'Finish' : ''}
-        </div>
+        <div className={styles.displayStrings}>{judgeFinish.length === 1 ? 'Finish' : ''}</div>
       </div>
     </div>
   );
