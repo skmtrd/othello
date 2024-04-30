@@ -16,6 +16,7 @@ const countSkip = [0, 0];
 const stoneNum = [2, 2, 4];
 //置くことが可能か判断する関数
 const checkCanPut = (x: number, y: number, board: number[][], turnColor: number) => {
+  console.log(x, y);
   if (board[y][x] === 1 || board[y][x] === 2) return false;
   let canPut: boolean = false;
   invertPosition.length = 0;
@@ -48,52 +49,46 @@ const reloadBoard = (x: number, y: number, board: number[][], turnColor: number)
   for (const cell of invertPosition) {
     board[cell[0]][cell[1]] = turnColor;
   }
-  for (let s = 0; s < 3; s++) stoneNum[s] = 0;
-  for (let j = 0; j < 8; j++) {
-    for (let i = 0; i < 8; i++) {
-      if (board[i][j] === 1) stoneNum[0]++;
-      if (board[i][j] === 2) stoneNum[1]++;
-      if (board[i][j] === 3) board[i][j] = 0;
-      if (checkCanPut(j, i, board, 3 - turnColor) === true) {
-        board[i][j] = 3;
-        stoneNum[2]++;
-      }
-    }
-  }
-  return board;
+  stoneNum.fill(0);
+  const newBoard = board.map((row) => {
+    return row.map((element) => {
+      return element === 3 ? 0 : element;
+    });
+  });
+  console.log(newBoard);
+  const newBoard2 = newBoard.map((row, i) => {
+    return row.map((cell, j) => {
+      return checkCanPut(j, i, newBoard, 3 - turnColor) === true ? 3 : cell;
+    });
+  });
+  countStoneNum(newBoard2);
+  return newBoard2;
+};
+
+const countStoneNum = (board: number[][]) => {
+  const flatBoard: number[] = board.flat();
+  stoneNum[0] += flatBoard.filter((x) => x === 1).length;
+  stoneNum[1] += flatBoard.filter((x) => x === 2).length;
+  stoneNum[2] += flatBoard.filter((x) => x === 3).length;
 };
 
 const Home = () => {
   const [turnColor, setTurnColor] = useState(1);
   const [board, setBoard] = useState([
-    [1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 2, 0, 0, 0, 0, 0, 1],
-    // [1, 0, 2, 0, 1, 0, 2, 0],
-    // [2, 0, 1, 0, 2, 0, 1, 0],
-    // [2, 0, 1, 0, 2, 0, 1, 0],
-    // [0, 0, 0, 0, 0, 0, 1, 0],
-    // [0, 0, 3, 0, 0, 0, 0, 0],
-    // [0, 0, 0, 3, 0, 0, 0, 0],
-    // [2, 1, 0, 0, 0, 0, 0, 0],
-    // [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 3, 0, 0, 0],
+    [0, 0, 0, 1, 2, 3, 0, 0],
+    [0, 0, 3, 2, 1, 0, 0, 0],
+    [0, 0, 0, 3, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
   ]);
   const clickHandler = (x: number, y: number) => {
     const newBoard = structuredClone(board);
-
     if (checkCanPut(x, y, newBoard, turnColor) === true) {
       setBoard(reloadBoard(x, y, newBoard, turnColor));
       setTurnColor(3 - turnColor);
-      console.log(stoneNum[2]);
-
-      if (countSkip[0] === 2 || countSkip[1] === 2) {
-        judgeFinish.push(1);
-      }
     }
   };
   return (
