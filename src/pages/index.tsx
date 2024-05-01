@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import styles from './index.module.css';
+import { skip } from 'node:test';
+import { count } from 'node:console';
 const directions = [
   [1, 0],
   [1, 1],
@@ -10,12 +12,11 @@ const directions = [
   [0, -1],
   [1, -1],
 ];
+const finishChecker: number[] = [0];
 const invertPosition: number[][] = [];
-const countSkip = [0, 0];
+const countSkip = [0];
 const stoneNum = [2, 2, 4];
-//置くことが可能か判断する関数
 const checkCanPut = (x: number, y: number, board: number[][], turnColor: number) => {
-  console.log(x, y);
   if (board[y][x] === 1 || board[y][x] === 2) return false;
   let canPut: boolean = false;
   invertPosition.length = 0;
@@ -42,7 +43,6 @@ const checkCanPut = (x: number, y: number, board: number[][], turnColor: number)
   return canPut;
 };
 
-//色の変更を担う関数
 const reloadBoard = (x: number, y: number, board: number[][], turnColor: number) => {
   board[y][x] = turnColor;
   for (const cell of invertPosition) {
@@ -54,40 +54,60 @@ const reloadBoard = (x: number, y: number, board: number[][], turnColor: number)
       return element === 3 ? 0 : element;
     });
   });
-  console.log(newBoard);
   const newBoard2 = newBoard.map((row, i) => {
     return row.map((cell, j) => {
       return checkCanPut(j, i, newBoard, 3 - turnColor) === true ? 3 : cell;
     });
   });
-  countStoneNum(newBoard2);
+  countStoneNum(newBoard2, turnColor);
   return newBoard2;
 };
 
-const countStoneNum = (board: number[][]) => {
+const countStoneNum = (board: number[][], turnColor: number) => {
   const flatBoard: number[] = board.flat();
   stoneNum[0] += flatBoard.filter((x) => x === 1).length;
   stoneNum[1] += flatBoard.filter((x) => x === 2).length;
   stoneNum[2] += flatBoard.filter((x) => x === 3).length;
+  countSkip[0] = 0;
 };
 
 const Home = () => {
   const [turnColor, setTurnColor] = useState(1);
   const [board, setBoard] = useState([
+    [1, 2, 0, 0, 0, 0, 0, 0],
+    [2, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 3, 0, 0, 0],
-    [0, 0, 0, 1, 2, 3, 0, 0],
-    [0, 0, 3, 2, 1, 0, 0, 0],
-    [0, 0, 0, 3, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
   ]);
   const clickHandler = (x: number, y: number) => {
     const newBoard = structuredClone(board);
     if (checkCanPut(x, y, newBoard, turnColor) === true) {
-      setBoard(reloadBoard(x, y, newBoard, turnColor));
-      setTurnColor(3 - turnColor);
+      const reloadedBoard: number[][] = reloadBoard(x, y, newBoard, turnColor);
+      if (stoneNum[2] === 0) {
+        countSkip[0] = 0;
+        countSkip[0]++;
+        console.log(reloadedBoard);
+        const skipCountBoard: number[][] = reloadedBoard.map((row, i) => {
+          return row.map((cell, j) => {
+            return checkCanPut(j, i, reloadedBoard, turnColor) === true ? 3 : cell;
+          });
+        });
+        setBoard(skipCountBoard);
+        const flatBoard: number[] = skipCountBoard.flat();
+        stoneNum[2] = 0;
+        stoneNum[2] += flatBoard.filter((x) => x === 3).length;
+        if (stoneNum[2] === 0) {
+          console.log('passe2');
+          finishChecker[0]++;
+        }
+      }
+
+      countSkip[0] === 0 ? setBoard(reloadedBoard) : '';
+      countSkip[0] === 0 ? setTurnColor(3 - turnColor) : '';
     }
   };
   return (
@@ -142,9 +162,15 @@ const Home = () => {
             White:{stoneNum[1]}
           </div>
         </div>
-        <div className={styles.skipCountBoardStyle}>
-          <div className={styles.displayStrings}>({countSkip[0]})</div>
-          <div className={styles.displayStrings}>({countSkip[1]})</div>
+        <div
+          className={styles.displayStrings}
+          style={{
+            marginLeft: 75,
+            fontSize: 40,
+            marginTop: 30,
+          }}
+        >
+          {finishChecker[0] !== 0 ? 'Finish!!!' : ''}
         </div>
       </div>
     </div>
