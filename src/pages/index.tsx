@@ -59,11 +59,11 @@ const reloadBoard = (x: number, y: number, board: number[][], turnColor: number)
       return checkCanPut(j, i, newBoard, 3 - turnColor) === true ? 3 : cell;
     });
   });
-  countStoneNum(newBoard2, turnColor);
+  countStoneNum(newBoard2);
   return newBoard2;
 };
 
-const countStoneNum = (board: number[][], turnColor: number) => {
+const countStoneNum = (board: number[][]) => {
   const flatBoard: number[] = board.flat();
   stoneNum[0] += flatBoard.filter((x) => x === 1).length;
   stoneNum[1] += flatBoard.filter((x) => x === 2).length;
