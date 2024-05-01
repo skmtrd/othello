@@ -101,7 +101,6 @@ const Home = () => {
         stoneNum[2] = 0;
         stoneNum[2] += flatBoard.filter((x) => x === 3).length;
         if (stoneNum[2] === 0) {
-          console.log('passe2');
           finishChecker[0]++;
         }
       }
