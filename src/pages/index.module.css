@@ -44,7 +44,7 @@
   -webkit-box-reflect: below;
   transition:
     background-color 0.3s linear,
-    transform 0.3s linear; /* アニメーションの追加 */
+    transform 0.3s linear;
 }
 
 .turnContainerStyle {
