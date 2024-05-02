@@ -27,7 +27,7 @@
   border-width: 2px;
   border-radius: 15%;
   box-shadow: 5px 5px 5px -5px rgb(0 0 0 / 20%);
-  transition: all 1s 0s ease; /* transitionの記述を追加 */
+  transition: all 1s 0s ease;
 }
 
 .cellStyle :hover {
