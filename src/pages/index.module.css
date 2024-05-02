@@ -27,15 +27,24 @@
   border-width: 2px;
   border-radius: 15%;
   box-shadow: 5px 5px 5px -5px rgb(0 0 0 / 20%);
+  transition: all 1s 0s ease; /* transitionの記述を追加 */
+}
+
+.cellStyle :hover {
+  background-color: rgb(17 34 216);
+  transition: all 0.2s 0s ease; /* transitionの記述を追加 */
 }
 
 .stoneStyle {
   display: flex;
   width: 55px;
   height: 55px;
-  background-color: white;
   border-radius: 50%;
   box-shadow: 8px 5px 5px -5px rgb(89 74 74 / 20%);
+  -webkit-box-reflect: below;
+  transition:
+    background-color 0.3s linear,
+    transform 0.3s linear; /* アニメーションの追加 */
 }
 
 .turnContainerStyle {
@@ -107,4 +116,23 @@
   display: flex;
   width: 300px;
   height: 30px;
+}
+
+.finishStyle {
+  position: absolute;
+  top: 0;
+  left: -1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  font-family: 'Arial Rounded MT';
+  font-size: 200px;
+  color: white;
+  background-color: #e97878;
+  transition: width 0.3s linear;
+}
+
+.finishString {
 }

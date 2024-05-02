@@ -95,8 +95,8 @@ const Home = () => {
     [1, 2, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 1, 2, 0, 0, 0],
+    [0, 0, 0, 2, 0, 3, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
@@ -107,7 +107,6 @@ const Home = () => {
       const reloadedBoard: number[][] = reloadBoard(x, y, newBoard, turnColor);
       const newBoard2: number[][] = checkFinish(reloadedBoard, turnColor);
       setBoard(newBoard2);
-      console.log(countSkip[0]);
       countSkip[0] === 0 ? setTurnColor(3 - turnColor) : '';
     }
   };
@@ -173,6 +172,15 @@ const Home = () => {
         >
           {finishChecker[0] !== 0 ? 'Finish!!!' : ''}
         </div>
+      </div>
+      <div
+        className={styles.finishStyle}
+        style={{
+          width: finishChecker[0] === 1 ? '100%' : 0,
+          overflow: finishChecker[0] === 1 ? 'visible' : 'hidden',
+        }}
+      >
+        <a>Finish</a>
       </div>
     </div>
   );
