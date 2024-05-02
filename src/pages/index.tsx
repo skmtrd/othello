@@ -1,8 +1,5 @@
 import { useState } from 'react';
 import styles from './index.module.css';
-import { skip } from 'node:test';
-import { count } from 'node:console';
-import { markCurrentScopeAsDynamic } from 'next/dist/server/app-render/dynamic-rendering';
 const directions = [
   [1, 0],
   [1, 1],
@@ -103,6 +100,11 @@ const Home = () => {
   ]);
   const clickHandler = (x: number, y: number) => {
     const newBoard = structuredClone(board);
+    if (finishChecker[0] === 1) {
+      finishChecker[0] = 0;
+      setBoard(newBoard);
+      setTurnColor(turnColor);
+    }
     if (checkCanPut(x, y, newBoard, turnColor) === true) {
       const reloadedBoard: number[][] = reloadBoard(x, y, newBoard, turnColor);
       const newBoard2: number[][] = checkFinish(reloadedBoard, turnColor);
@@ -162,16 +164,6 @@ const Home = () => {
             White:{stoneNum[1]}
           </div>
         </div>
-        <div
-          className={styles.displayStrings}
-          style={{
-            marginLeft: 75,
-            fontSize: 40,
-            marginTop: 30,
-          }}
-        >
-          {finishChecker[0] !== 0 ? 'Finish!!!' : ''}
-        </div>
       </div>
       <div
         className={styles.finishStyle}
@@ -179,6 +171,7 @@ const Home = () => {
           width: finishChecker[0] === 1 ? '100%' : 0,
           overflow: finishChecker[0] === 1 ? 'visible' : 'hidden',
         }}
+        onClick={() => clickHandler(1, 1)}
       >
         <a>Finish</a>
       </div>
