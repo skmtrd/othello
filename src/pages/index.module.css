@@ -32,7 +32,7 @@
 
 .cellStyle :hover {
   background-color: rgb(17 34 216);
-  transition: all 0.2s 0s ease; /* transitionの記述を追加 */
+  transition: all 0.2s 0s ease;
 }
 
 .stoneStyle {
