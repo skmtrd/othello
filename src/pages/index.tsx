@@ -2,6 +2,7 @@ import { useState } from 'react';
 import styles from './index.module.css';
 import { skip } from 'node:test';
 import { count } from 'node:console';
+import { markCurrentScopeAsDynamic } from 'next/dist/server/app-render/dynamic-rendering';
 const directions = [
   [1, 0],
   [1, 1],
@@ -49,6 +50,19 @@ const reloadBoard = (x: number, y: number, board: number[][], turnColor: number)
     board[cell[0]][cell[1]] = turnColor;
   }
   stoneNum.fill(0);
+  const newBoard = displaySuggest(board, turnColor);
+  countStoneNum(newBoard);
+  return newBoard;
+};
+
+const countStoneNum = (board: number[][]) => {
+  const flatBoard: number[] = board.flat();
+  stoneNum[0] += flatBoard.filter((x) => x === 1).length;
+  stoneNum[1] += flatBoard.filter((x) => x === 2).length;
+  stoneNum[2] += flatBoard.filter((x) => x === 3).length;
+};
+
+const displaySuggest = (board: number[][], turnColor: number) => {
   const newBoard = board.map((row) => {
     return row.map((element) => {
       return element === 3 ? 0 : element;
@@ -59,23 +73,27 @@ const reloadBoard = (x: number, y: number, board: number[][], turnColor: number)
       return checkCanPut(j, i, newBoard, 3 - turnColor) === true ? 3 : cell;
     });
   });
-  countStoneNum(newBoard2);
   return newBoard2;
 };
-
-const countStoneNum = (board: number[][]) => {
-  const flatBoard: number[] = board.flat();
-  stoneNum[0] += flatBoard.filter((x) => x === 1).length;
-  stoneNum[1] += flatBoard.filter((x) => x === 2).length;
-  stoneNum[2] += flatBoard.filter((x) => x === 3).length;
-  countSkip[0] = 0;
+const checkFinish = (board: number[][], turnColor: number) => {
+  if (stoneNum[2] === 0) {
+    console.log('p');
+    countSkip[0] = 0;
+    countSkip[0]++;
+    console.log(countSkip[0]);
+    const newBoard = displaySuggest(board, 3 - turnColor);
+    countStoneNum(newBoard);
+    if (stoneNum[2] === 0) finishChecker[0]++;
+    return newBoard;
+  }
+  return board;
 };
 
 const Home = () => {
   const [turnColor, setTurnColor] = useState(1);
   const [board, setBoard] = useState([
     [1, 2, 0, 0, 0, 0, 0, 0],
-    [2, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
@@ -87,25 +105,9 @@ const Home = () => {
     const newBoard = structuredClone(board);
     if (checkCanPut(x, y, newBoard, turnColor) === true) {
       const reloadedBoard: number[][] = reloadBoard(x, y, newBoard, turnColor);
-      if (stoneNum[2] === 0) {
-        countSkip[0] = 0;
-        countSkip[0]++;
-        console.log(reloadedBoard);
-        const skipCountBoard: number[][] = reloadedBoard.map((row, i) => {
-          return row.map((cell, j) => {
-            return checkCanPut(j, i, reloadedBoard, turnColor) === true ? 3 : cell;
-          });
-        });
-        setBoard(skipCountBoard);
-        const flatBoard: number[] = skipCountBoard.flat();
-        stoneNum[2] = 0;
-        stoneNum[2] += flatBoard.filter((x) => x === 3).length;
-        if (stoneNum[2] === 0) {
-          finishChecker[0]++;
-        }
-      }
-
-      countSkip[0] === 0 ? setBoard(reloadedBoard) : '';
+      const newBoard2: number[][] = checkFinish(reloadedBoard, turnColor);
+      setBoard(newBoard2);
+      console.log(countSkip[0]);
       countSkip[0] === 0 ? setTurnColor(3 - turnColor) : '';
     }
   };
