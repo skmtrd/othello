@@ -47,7 +47,6 @@
   height: 48px;
   border-radius: 50%;
   box-shadow: 8px 5px 5px -5px rgb(89 74 74 / 20%);
-  -webkit-box-reflect: below;
   transition:
     background-color 0.3s linear,
     transform 0.3s linear;
