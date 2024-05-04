@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import styles from './index.module.css';
+import { toUnicode } from 'punycode';
+import { CLIENT_STATIC_FILES_RUNTIME_POLYFILLS_SYMBOL } from 'next/dist/shared/lib/constants';
 const directions = [
   [1, 0],
   [1, 1],
@@ -11,27 +13,27 @@ const directions = [
   [1, -1],
 ];
 const finishChecker: number[] = [0];
-const preInvertPosition = [];
+const preInvertPosition: number[][] = [];
 const invertPosition: number[][] = [];
 const countSkip = [0];
 const stoneNum = [2, 2, 4];
 const checkCanPut = (x: number, y: number, board: number[][], turnColor: number) => {
+  let preReturn: boolean = false;
   if (board[y][x] === 1 || board[y][x] === 2) return false;
-  const run = true;
-  const i = 0;
-  while (run) {
-    let findEnemy = false;
-    const cursor = board[y + directions[i][0] * i][x + directions[i][1] * 1];
-    switch (cursor) {
-      case 3 - turnColor:
-        preInvertPosition.push([[y + directions[i][0] * i], [x + directions[i][1] * 1]]);
-        break;
-      case turnColor:
-        if (findEnemy) {
-          
-        }
+  for (const [dy, dx] of directions) {
+    for (let i = 1; i < 8; i++) {
+      const [cursorY, cursorX] = [y + dy * i, x + dx * i];
+      if (board[cursorY] !== undefined) {
+        const cursor = board[cursorY][cursorX];
+        if (cursor === turnColor) {
+          if (i === 1) break;
+          preReturn = true;
+        } else if (cursor === 3 - turnColor) preInvertPosition.push([cursorY, cursorX]);
+        else break;
+      }
     }
   }
+  return preReturn;
   // if (board[y][x] === 1 || board[y][x] === 2) return false;
   // let canPut: boolean = false;
   // invertPosition.length = 0;
@@ -109,9 +111,9 @@ const Home = () => {
   const [board, setBoard] = useState([
     [1, 2, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 1, 2, 0, 0, 0],
-    [0, 0, 0, 2, 0, 3, 0, 0],
+    [0, 0, 2, 2, 2, 0, 0, 0],
+    [0, 0, 2, 1, 2, 0, 0, 0],
+    [0, 0, 2, 2, 2, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
