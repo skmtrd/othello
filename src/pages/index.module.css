@@ -80,12 +80,13 @@
   width: 300px;
   height: 200px;
   margin-left: 100px;
-  background-color: rgb(231 157 157);
-  border: solid;
+  background-color: rgb(236 175 175);
   border-color: rgb(255 233 233);
-  border-width: 2px;
-  border-radius: 10%;
-  box-shadow: 5px 5px 5px -5px rgb(0 0 0 / 20%);
+  border-width: 1px;
+  border-radius: 9999px;
+  box-shadow: 0 1px 0 rgb(228 134 134);
+
+  /* box-shadow: 5px 5px 5px -5px rgb(0 0 0 / 20%); */
 }
 
 .displayStrings {
@@ -171,16 +172,20 @@
   margin-bottom: 30px;
   font-size: 20px;
   color: white;
-  background-color: rgb(255 180 180);
+  background-color: rgb(231 157 157);
   border-width: 2px;
-  border-radius: 15%;
-  box-shadow: 5px 5px 5px -5px rgb(0 0 0 / 20%);
-  transition:
-    background-color 0.3s ease-in,
-    transform 0.3s ease-in;
+  border-radius: 9999px;
+  box-shadow: 0 7px 0 rgb(228 134 134);
+
+  /* transition:
+    background-color 0.1s ease-in,
+    transform 0.1s ease-in; */
 }
 
-.btn:hover {
-  color: rgb(248 203 203);
-  background-color: rgb(182 161 161);
+.btn:active {
+  /* color: rgb(248 203 203);
+  background-color: rgb(182 161 161); */
+
+  box-shadow: none;
+  transform: translateY(5px);
 }
