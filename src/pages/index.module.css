@@ -62,12 +62,13 @@
 
 .canPlacePointStyle {
   display: flex;
-  width: 82px;
+  width: 85px;
   height: 78px;
   border: solid;
-  border-color: rgb(142 175 241);
-  border-width: 2.5px;
+  border-color: rgb(206 107 98);
+  border-width: 3.5px;
   border-radius: 15%;
+  animation: blinking 0.4s ease-in infinite alternate;
 
   /* background-color: rgb(171 191 230); */
 
@@ -78,15 +79,17 @@
 
 .scoreBoardStyle {
   width: 300px;
-  height: 200px;
+  height: 180px;
   margin-left: 100px;
   background-color: rgb(236 175 175);
-  border-color: rgb(255 233 233);
-  border-width: 1px;
+  border: solid;
+  border-color: rgb(255 209 209);
+  border-width: 2.5px;
   border-radius: 9999px;
-  box-shadow: 0 1px 0 rgb(228 134 134);
 
-  /* box-shadow: 5px 5px 5px -5px rgb(0 0 0 / 20%); */
+  /* box-shadow: 0 1px 0 rgb(228 134 134); */
+
+  box-shadow: 5px 5px 5px -5px rgb(0 0 0 / 20%);
 }
 
 .displayStrings {
@@ -101,7 +104,7 @@
   display: flex;
   width: 200px;
   height: 60px;
-  margin-top: 40px;
+  margin-top: 30px;
   margin-left: 55px;
   border-radius: 15px;
 }
@@ -188,4 +191,13 @@
 
   box-shadow: none;
   transform: translateY(5px);
+}
+@keyframes blinking {
+  0% {
+    opacity: 0.4;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
