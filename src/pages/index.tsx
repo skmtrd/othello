@@ -12,22 +12,30 @@ const directions = [
   [0, -1],
   [1, -1],
 ];
-const finishChecker: number[] = [0];
 const preInvertPosition: number[][] = [];
 const invertPosition: number[][] = [];
 const countSkip = [0];
 const stoneNum = [2, 2, 4];
+const finishChecker: number[] = [0];
 const checkCanPut = (x: number, y: number, board: number[][], turnColor: number) => {
+  invertPosition.length = 0;
   let preReturn: boolean = false;
   if (board[y][x] === 1 || board[y][x] === 2) return false;
   for (const [dy, dx] of directions) {
+    preInvertPosition.length = 0;
     for (let i = 1; i < 8; i++) {
       const [cursorY, cursorX] = [y + dy * i, x + dx * i];
       if (board[cursorY] !== undefined) {
         const cursor = board[cursorY][cursorX];
         if (cursor === turnColor) {
           if (i === 1) break;
+          console.log(preInvertPosition);
+          preInvertPosition.map((position) => {
+            invertPosition.push(position);
+            return null;
+          });
           preReturn = true;
+          break;
         } else if (cursor === 3 - turnColor) preInvertPosition.push([cursorY, cursorX]);
         else break;
       }
@@ -66,13 +74,13 @@ const reloadBoard = (x: number, y: number, board: number[][], turnColor: number)
     board[cell[0]][cell[1]] = turnColor;
     return null;
   });
-  stoneNum.fill(0);
   const newBoard = displaySuggest(board, turnColor);
   countStoneNum(newBoard);
   return newBoard;
 };
 
 const countStoneNum = (board: number[][]) => {
+  stoneNum.fill(0);
   const flatBoard: number[] = board.flat();
   stoneNum[0] += flatBoard.filter((x) => x === 1).length;
   stoneNum[1] += flatBoard.filter((x) => x === 2).length;
