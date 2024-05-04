@@ -11,41 +11,59 @@ const directions = [
   [1, -1],
 ];
 const finishChecker: number[] = [0];
+const preInvertPosition = [];
 const invertPosition: number[][] = [];
 const countSkip = [0];
 const stoneNum = [2, 2, 4];
 const checkCanPut = (x: number, y: number, board: number[][], turnColor: number) => {
   if (board[y][x] === 1 || board[y][x] === 2) return false;
-  let canPut: boolean = false;
-  invertPosition.length = 0;
-  for (const direction of directions) {
-    let alreadyFindEnemy: boolean = false;
-    const preInvertPosition = [];
-    for (let i = 1; i < 9; i++) {
-      const vertical = y + direction[0] * i;
-      const horizontal = x + direction[1] * i;
-      if (board[vertical] !== undefined) {
-        if (board[vertical][horizontal] === turnColor && alreadyFindEnemy) {
-          for (const row of preInvertPosition) {
-            invertPosition.push(row);
-          }
-          canPut = true;
-          break;
-        } else if (board[vertical][horizontal] === 3 - turnColor) {
-          preInvertPosition.push([vertical, horizontal]);
-          alreadyFindEnemy = true;
-        } else break;
-      }
+  const run = true;
+  const i = 0;
+  while (run) {
+    let findEnemy = false;
+    const cursor = board[y + directions[i][0] * i][x + directions[i][1] * 1];
+    switch (cursor) {
+      case 3 - turnColor:
+        preInvertPosition.push([[y + directions[i][0] * i], [x + directions[i][1] * 1]]);
+        break;
+      case turnColor:
+        if (findEnemy) {
+          
+        }
     }
   }
-  return canPut;
+  // if (board[y][x] === 1 || board[y][x] === 2) return false;
+  // let canPut: boolean = false;
+  // invertPosition.length = 0;
+  // for (const direction of directions) {
+  //   let alreadyFindEnemy: boolean = false;
+  //   const preInvertPosition = [];
+  //   for (let i = 1; i < 9; i++) {
+  //     const vertical = y + direction[0] * i;
+  //     const horizontal = x + direction[1] * i;
+  //     if (board[vertical] !== undefined) {
+  //       if (board[vertical][horizontal] === turnColor && alreadyFindEnemy) {
+  //         for (const row of preInvertPosition) {
+  //           invertPosition.push(row);
+  //         }
+  //         canPut = true;
+  //         break;
+  //       } else if (board[vertical][horizontal] === 3 - turnColor) {
+  //         preInvertPosition.push([vertical, horizontal]);
+  //         alreadyFindEnemy = true;
+  //       } else break;
+  //     }
+  //   }
+  // }
+  // return canPut;
 };
 
 const reloadBoard = (x: number, y: number, board: number[][], turnColor: number) => {
   board[y][x] = turnColor;
-  for (const cell of invertPosition) {
+  invertPosition.map((cell) => {
     board[cell[0]][cell[1]] = turnColor;
-  }
+    return null;
+  });
   stoneNum.fill(0);
   const newBoard = displaySuggest(board, turnColor);
   countStoneNum(newBoard);
@@ -98,13 +116,15 @@ const Home = () => {
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
   ]);
+  const closeFinishEffect = () => {
+    const newBoard = structuredClone(board);
+    finishChecker[0] = 0;
+    setBoard(newBoard);
+    setTurnColor(turnColor);
+  };
+
   const clickHandler = (x: number, y: number) => {
     const newBoard = structuredClone(board);
-    if (finishChecker[0] === 1) {
-      finishChecker[0] = 0;
-      setBoard(newBoard);
-      setTurnColor(turnColor);
-    }
     if (checkCanPut(x, y, newBoard, turnColor) === true) {
       const reloadedBoard: number[][] = reloadBoard(x, y, newBoard, turnColor);
       const newBoard2: number[][] = checkFinish(reloadedBoard, turnColor);
@@ -172,7 +192,7 @@ const Home = () => {
           //{1:"100%", 0:0[finishChecker[0]]}
           overflow: { 1: 'visible', 0: 'hidden' }[finishChecker[0]],
         }}
-        onClick={() => clickHandler(1, 1)}
+        onClick={() => closeFinishEffect()}
       >
         <a>Finish</a>
       </div>
