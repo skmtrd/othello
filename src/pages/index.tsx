@@ -17,6 +17,16 @@ const invertPosition: number[][] = [];
 const countSkip = [0];
 const stoneNum = [2, 2, 4];
 const finishChecker: number[] = [0];
+const restartBoard = [
+  [0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 3, 0, 0, 0],
+  [0, 0, 0, 1, 2, 3, 0, 0],
+  [0, 0, 3, 2, 1, 0, 0, 0],
+  [0, 0, 0, 3, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0],
+];
 const checkCanPut = (x: number, y: number, board: number[][], turnColor: number) => {
   invertPosition.length = 0;
   let preReturn: boolean = false;
@@ -116,7 +126,7 @@ const checkFinish = (board: number[][], turnColor: number) => {
 const Home = () => {
   const [turnColor, setTurnColor] = useState(1);
   const [board, setBoard] = useState([
-    [1, 2, 3, 0, 0, 0, 0, 0],
+    [1, 2, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
@@ -126,8 +136,10 @@ const Home = () => {
     [0, 0, 0, 0, 0, 0, 0, 0],
   ]);
   const closeFinishEffect = () => {
-    const newBoard = structuredClone(board);
+    const newBoard = restartBoard;
     finishChecker[0] = 0;
+    countStoneNum(newBoard);
+    countSkip.fill(0);
     setBoard(newBoard);
     setTurnColor(turnColor);
   };
@@ -203,14 +215,7 @@ const Home = () => {
         }}
         onClick={() => closeFinishEffect()}
       >
-        <div
-          className={styles.finishStringsStyle}
-          style={{
-            width: { 1: 800, 0: 0 }[finishChecker[0]],
-            // height: { 1: 640, 0: 0 }[finishChecker[0]],
-            overflow: { 1: 'visible', 0: 'hidden' }[finishChecker[0]],
-          }}
-        >
+        <div className={styles.finishStringsStyle}>
           <div
             className={styles.displayStrings}
             style={{

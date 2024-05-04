@@ -136,6 +136,8 @@
   position: absolute;
   top: 0;
   bottom: 0;
+  width: 800px;
+  height: 640px;
   margin: auto 0;
   transition: width 0.4s ease-out;
 
