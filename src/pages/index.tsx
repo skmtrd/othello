@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import styles from './index.module.css';
+import { SYMBOL_PREVIEW_DATA } from 'next/dist/server/api-utils';
 ('next/dist/shared/lib/constants');
 const directions = [
   [1, 0],
@@ -105,10 +106,10 @@ const Home = () => {
     [2, 2, 2, 2, 2, 2, 1, 2],
     [2, 2, 2, 2, 2, 2, 2, 2],
     [2, 2, 2, 2, 1, 2, 2, 2],
-    [2, 2, 1, 1, 2, 2, 1, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
+    [2, 2, 1, 1, 2, 2, 1, 2],
+    [2, 1, 2, 1, 2, 2, 2, 2],
+    [2, 2, 2, 2, 2, 2, 2, 2],
+    [0, 0, 2, 2, 2, 2, 2, 2],
   ]);
   const closeFinishEffect = () => {
     const newBoard = restartBoard;
@@ -163,6 +164,7 @@ const Home = () => {
           >
             Turn
           </div>
+
           <div
             className={styles.stoneStyle}
             style={{ background: { 1: '#585858', 2: '#fff' }[turnColor] }}
@@ -170,21 +172,17 @@ const Home = () => {
         </div>
         <div className={styles.stoneNumBoardStyle}>
           <div
-            className={styles.stoneNumStyle}
-            style={{
-              marginLeft: 35,
-            }}
-          >
-            Black:{stoneNum[0]}
-          </div>
+            className={styles.stoneStyle}
+            style={{ background: '#585858', width: 30, height: 30 }}
+          />
+          <div style={{ marginLeft: 10 }}>{stoneNum[0]}</div>
+        </div>
+        <div className={styles.stoneNumBoardStyle}>
           <div
-            className={styles.stoneNumStyle}
-            style={{
-              marginLeft: 68,
-            }}
-          >
-            White:{stoneNum[1]}
-          </div>
+            className={styles.stoneStyle}
+            style={{ background: '#ffffff', width: 30, height: 30 }}
+          />
+          <div style={{ marginLeft: 10 }}>{stoneNum[1]}</div>
         </div>
       </div>
       <div
