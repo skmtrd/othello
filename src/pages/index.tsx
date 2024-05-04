@@ -102,7 +102,6 @@ const displaySuggest = (board: number[][], turnColor: number) => {
 };
 const checkFinish = (board: number[][], turnColor: number) => {
   if (stoneNum[2] === 0) {
-    console.log('p');
     countSkip[0] = 0;
     countSkip[0]++;
     console.log(countSkip[0]);
@@ -117,11 +116,11 @@ const checkFinish = (board: number[][], turnColor: number) => {
 const Home = () => {
   const [turnColor, setTurnColor] = useState(1);
   const [board, setBoard] = useState([
-    [1, 2, 0, 0, 0, 0, 0, 0],
+    [1, 2, 3, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 2, 2, 2, 0, 0, 0],
-    [0, 0, 2, 1, 2, 0, 0, 0],
-    [0, 0, 2, 2, 2, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
@@ -167,6 +166,7 @@ const Home = () => {
               fontSize: 25,
               marginTop: 10.5,
               marginLeft: 30,
+              width: 100,
             }}
           >
             Turn
@@ -204,7 +204,32 @@ const Home = () => {
         }}
         onClick={() => closeFinishEffect()}
       >
-        <a>Finish</a>
+        <div className={styles.finishStringsStyle}>
+          <div
+            className={styles.displayStrings}
+            style={{
+              fontSize: 160,
+              width: 500,
+              height: 180,
+              margin: '0 auto',
+              marginTop: '20%',
+            }}
+          >
+            Finish
+          </div>
+          <div
+            className={styles.displayStrings}
+            style={{
+              fontSize: 90,
+              width: 200,
+              height: 130,
+              margin: '0 auto',
+              marginTop: '10%',
+            }}
+          >
+            {stoneNum[0]} : {stoneNum[1]}
+          </div>
+        </div>
       </div>
     </div>
   );
