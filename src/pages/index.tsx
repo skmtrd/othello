@@ -121,7 +121,7 @@ const Home = () => {
               {color !== 0 && color !== 3 && (
                 <div
                   className={styles.stoneStyle}
-                  style={{ background: color === 1 ? '#393939' : '#fff' }}
+                  style={{ background: { 1: '#393939', 2: '#fff' }[color] }}
                 />
               )}
               {color === 3 && <div className={styles.canPlacePointStyle} />}
@@ -143,7 +143,7 @@ const Home = () => {
           </div>
           <div
             className={styles.stoneStyle}
-            style={{ background: turnColor === 1 ? '#393939' : '#fff', marginLeft: 5 }}
+            style={{ background: { 1: '#393939', 2: '#fff' }[turnColor] }}
           />
         </div>
         <div className={styles.stoneNumBoardStyle}>
@@ -168,8 +168,9 @@ const Home = () => {
       <div
         className={styles.finishStyle}
         style={{
-          width: finishChecker[0] === 1 ? '100%' : 0,
-          overflow: finishChecker[0] === 1 ? 'visible' : 'hidden',
+          width: { 1: '100%', 0: 0 }[finishChecker[0]],
+          //{1:"100%", 0:0[finishChecker[0]]}
+          overflow: { 1: 'visible', 0: 'hidden' }[finishChecker[0]],
         }}
         onClick={() => clickHandler(1, 1)}
       >
