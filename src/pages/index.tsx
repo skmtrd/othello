@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import styles from './index.module.css';
-import { SYMBOL_PREVIEW_DATA } from 'next/dist/server/api-utils';
 ('next/dist/shared/lib/constants');
 const directions = [
   [1, 0],
