@@ -199,12 +199,18 @@ const Home = () => {
         className={styles.finishStyle}
         style={{
           width: { 1: '100%', 0: 0 }[finishChecker[0]],
-          //{1:"100%", 0:0[finishChecker[0]]}
           overflow: { 1: 'visible', 0: 'hidden' }[finishChecker[0]],
         }}
         onClick={() => closeFinishEffect()}
       >
-        <div className={styles.finishStringsStyle}>
+        <div
+          className={styles.finishStringsStyle}
+          style={{
+            width: { 1: 800, 0: 0 }[finishChecker[0]],
+            // height: { 1: 640, 0: 0 }[finishChecker[0]],
+            overflow: { 1: 'visible', 0: 'hidden' }[finishChecker[0]],
+          }}
+        >
           <div
             className={styles.displayStrings}
             style={{
@@ -225,6 +231,7 @@ const Home = () => {
               height: 130,
               margin: '0 auto',
               marginTop: '10%',
+              // overflow: { 1: 'visible', 0: 'hidden' }[finishChecker[0]],
             }}
           >
             {stoneNum[0]} : {stoneNum[1]}

@@ -90,7 +90,6 @@
   height: 60px;
   margin-top: 40px;
   margin-left: 55px;
-  border: solid;
   border-radius: 15px;
 }
 
@@ -130,10 +129,15 @@
   font-family: 'Arial Rounded MT';
   color: rgb(77 77 77);
   background-color: rgb(233 120 120 / 50%);
-  transition: width 0.5s linear;
+  transition: width 0.4s linear;
 }
 
 .finishStringsStyle {
-  width: 800px;
-  height: 640px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto 0;
+  transition: width 0.4s ease-out;
+
+  /* transition: height 0.1s linear; */
 }
