@@ -130,6 +130,11 @@ const Home = () => {
   };
   return (
     <div className={styles.container}>
+      <div className={styles.btn} onClick={() => closeFinishEffect()}>
+        <div className={styles.restartButtomStyle}>
+          <div>Restart</div>
+        </div>
+      </div>
       <div className={styles.boardStyle}>
         {board.map((row, y) =>
           row.map((color, x) => (

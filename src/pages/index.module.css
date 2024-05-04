@@ -16,6 +16,11 @@
   height: 640px;
 }
 
+.boardStyle :hover {
+  background-color: rgb(228 181 181);
+  border-width: 2px;
+}
+
 .cellStyle {
   display: flex;
   align-items: center;
@@ -28,18 +33,18 @@
   border-width: 2px;
   border-radius: 15%;
   box-shadow: 5px 5px 5px -5px rgb(0 0 0 / 20%);
-  transition: all 1s 0s ease;
+  transition: all 0.5s 0s ease;
 }
 
 .cellStyle :hover {
-  background-color: rgb(146 151 213);
+  background-color: rgb(218 160 160);
   transition: all 0.2s 0s ease;
 }
 
 .stoneStyle {
   display: flex;
-  width: 55px;
-  height: 55px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   box-shadow: 8px 5px 5px -5px rgb(89 74 74 / 20%);
   -webkit-box-reflect: below;
@@ -57,20 +62,27 @@
 
 .canPlacePointStyle {
   display: flex;
-  width: 30px;
-  height: 30px;
-  background-color: rgb(171 191 230);
-  border-radius: 50%;
-  box-shadow: 5px 5px 5px -5px rgb(0 0 0 / 20%);
+  width: 82px;
+  height: 78px;
+  border: solid;
+  border-color: rgb(142 175 241);
+  border-width: 2.5px;
+  border-radius: 15%;
+
+  /* background-color: rgb(171 191 230); */
+
+  /* border-radius: 50%; */
+
+  /* box-shadow: 5px 5px 5px -5px rgb(0 0 0 / 20%); */
 }
 
 .scoreBoardStyle {
   width: 300px;
-  height: 300px;
+  height: 200px;
   margin-left: 100px;
   background-color: rgb(231 157 157);
   border: solid;
-  border-color: rgb(235 206 206);
+  border-color: rgb(255 233 233);
   border-width: 2px;
   border-radius: 10%;
   box-shadow: 5px 5px 5px -5px rgb(0 0 0 / 20%);
@@ -138,6 +150,37 @@
   height: 640px;
   margin: auto 0;
   transition: width 0.4s ease-out;
+}
 
-  /* transition: height 0.1s linear; */
+.restartButtomStyle {
+  transition:
+    background-color 0.3s ease-in,
+    transform 0.3s ease-in;
+}
+
+.btn {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 120px;
+  height: 50px;
+  margin-right: 50px;
+  margin-bottom: 30px;
+  font-size: 20px;
+  color: white;
+  background-color: rgb(255 180 180);
+  border-width: 2px;
+  border-radius: 15%;
+  box-shadow: 5px 5px 5px -5px rgb(0 0 0 / 20%);
+  transition:
+    background-color 0.3s ease-in,
+    transform 0.3s ease-in;
+}
+
+.btn:hover {
+  color: rgb(248 203 203);
+  background-color: rgb(182 161 161);
 }
