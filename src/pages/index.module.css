@@ -5,6 +5,7 @@
   height: 100vh;
   min-height: 100vh;
   padding: 0 0.5rem;
+  font-family: 'Arial Rounded MT', sans-serif;
   background-color: rgb(248 221 226);
 }
 
@@ -31,7 +32,7 @@
 }
 
 .cellStyle :hover {
-  background-color: rgb(17 34 216);
+  background-color: rgb(146 151 213);
   transition: all 0.2s 0s ease;
 }
 
@@ -79,7 +80,6 @@
   display: flex;
   width: 200px;
   height: 40px;
-  font-family: 'Arial Rounded MT';
   font-size: 20px;
   color: white;
 }
@@ -106,7 +106,6 @@
   width: 60px;
   height: 30px;
   margin-top: 10.5px;
-  font-family: 'Arial Rounded MT';
   font-size: 25px;
   color: white;
 }
@@ -126,7 +125,6 @@
   justify-content: center;
   width: 100%;
   height: 100%;
-  font-family: 'Arial Rounded MT';
   color: rgb(77 77 77);
   background-color: rgb(233 120 120 / 50%);
   transition: width 0.4s linear;
