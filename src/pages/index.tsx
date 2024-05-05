@@ -103,14 +103,14 @@ const checkFinish = (board: number[][], turnColor: number) => {
 const Home = () => {
   const [turnColor, setTurnColor] = useState(1);
   const [board, setBoard] = useState([
-    [1, 2, 2, 2, 2, 2, 2, 2],
-    [2, 2, 2, 2, 2, 2, 1, 2],
-    [2, 2, 2, 2, 2, 2, 2, 2],
-    [2, 2, 2, 2, 1, 2, 2, 2],
-    [2, 2, 1, 1, 2, 2, 1, 2],
-    [2, 1, 2, 1, 2, 2, 2, 2],
-    [2, 2, 2, 2, 2, 2, 2, 2],
-    [0, 0, 2, 2, 2, 2, 2, 2],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 3, 0, 0, 0],
+    [0, 0, 0, 1, 2, 3, 0, 0],
+    [0, 0, 3, 2, 1, 0, 0, 0],
+    [0, 0, 0, 3, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
   ]);
   const closeFinishEffect = () => {
     const newBoard = restartBoard;
