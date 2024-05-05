@@ -38,7 +38,6 @@ const checkCanPut = (x: number, y: number, board: number[][], turnColor: number)
         const cursor = board[cursorY][cursorX];
         if (cursor === turnColor) {
           if (i === 1) break;
-          console.log(preInvertPosition);
           preInvertPosition.map((position) => {
             invertPosition.push(position);
             return null;
@@ -90,7 +89,6 @@ const checkFinish = (board: number[][], turnColor: number) => {
   countSkip[0] = 0;
   if (stoneNum[2] === 0) {
     countSkip[0]++;
-    console.log(countSkip[0]);
     const newBoard = displaySuggest(board, 3 - turnColor);
     countStoneNum(newBoard);
     // if (stoneNum[2] === 0) finishChecker[0]++;
@@ -106,7 +104,7 @@ const Home = () => {
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 3, 0, 0, 0],
-    [0, 0, 0, 1, 2, 3, 0, 0],
+    [0, 0, 0, 0, 0, 3, 0, 0],
     [0, 0, 3, 2, 1, 0, 0, 0],
     [0, 0, 0, 3, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
