@@ -160,7 +160,7 @@ const Home = () => {
               fontSize: 25,
               marginTop: 10.5,
               marginLeft: 30,
-              width: 100,
+              width: 65,
             }}
           >
             Turn
