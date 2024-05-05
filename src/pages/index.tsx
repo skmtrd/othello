@@ -75,12 +75,13 @@ const countStoneNum = (board: number[][]) => {
 const displaySuggest = (board: number[][], turnColor: number) => {
   const newBoard = board.map((row) => {
     return row.map((element) => {
-      return element === 3 ? 0 : element;
+      return element % 3;
     });
   });
   const newBoard2 = newBoard.map((row, i) => {
     return row.map((cell, j) => {
-      return checkCanPut(j, i, newBoard, 3 - turnColor) === true ? 3 : cell;
+      return [cell, 3][+checkCanPut(j, i, newBoard, 3 - turnColor)];
+      // return checkCanPut(j, i, newBoard, 3 - turnColor) ? 3 : cell;
     });
   });
   return newBoard2;
@@ -92,7 +93,8 @@ const checkFinish = (board: number[][], turnColor: number) => {
     console.log(countSkip[0]);
     const newBoard = displaySuggest(board, 3 - turnColor);
     countStoneNum(newBoard);
-    if (stoneNum[2] === 0) finishChecker[0]++;
+    // if (stoneNum[2] === 0) finishChecker[0]++;
+    finishChecker[0] += [0, 1][+(stoneNum[2] === 0)];
     return newBoard;
   }
   return board;
@@ -121,7 +123,7 @@ const Home = () => {
 
   const clickHandler = (x: number, y: number) => {
     const newBoard = structuredClone(board);
-    if (checkCanPut(x, y, newBoard, turnColor) === true) {
+    if (checkCanPut(x, y, newBoard, turnColor)) {
       const reloadedBoard: number[][] = reloadBoard(x, y, newBoard, turnColor);
       const newBoard2: number[][] = checkFinish(reloadedBoard, turnColor);
       setBoard(newBoard2);
