@@ -105,7 +105,7 @@ const Home = () => {
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 3, 0, 0, 0],
     [0, 0, 0, 1, 2, 3, 0, 0],
-    [0, 0, 3, 2, 1, 0, 0, 0],
+    [0, 0, 3, 0, 0, 0, 0, 0],
     [0, 0, 0, 3, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
@@ -196,26 +196,31 @@ const Home = () => {
           <div
             className={styles.displayStrings}
             style={{
-              fontSize: 160,
+              justifyContent: 'center',
+              alignItems: 'center',
               width: 500,
               height: 180,
               margin: '0 auto',
               marginTop: '20%',
             }}
           >
-            Finish
+            <div style={{ display: 'flex' }}>finish</div>
           </div>
           <div
             className={styles.displayStrings}
             style={{
-              fontSize: 90,
+              justifyContent: 'center',
+              alignItems: 'center',
+              fontSize: '40px',
               width: 300,
               height: 130,
               margin: '0 auto',
               marginTop: '10%',
             }}
           >
-            {stoneNum[0]} : {stoneNum[1]}
+            <div style={{ display: 'flex' }}>
+              {stoneNum[0]} : {stoneNum[1]}
+            </div>
           </div>
         </div>
       </div>
