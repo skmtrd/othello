@@ -302,3 +302,20 @@
     }
   }
 }
+
+@media screen and (max-height: 700px) {
+  .btn {
+    width: 80px;
+    height: 30px;
+    margin-right: 10px;
+    margin-bottom: 15px;
+  }
+
+  .scoreBoardStyle {
+    margin-top: 3px;
+  }
+
+  .restartButtomStyle {
+    font-size: 15px;
+  }
+}
