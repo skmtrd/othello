@@ -187,7 +187,7 @@ const Home = () => {
       <div
         className={styles.finishStyle}
         style={{
-          width: { 1: '100%', 0: 0 }[finishChecker[0]],
+          width: { 1: '99%', 0: 0 }[finishChecker[0]],
           overflow: { 1: 'visible', 0: 'hidden' }[finishChecker[0]],
         }}
         onClick={() => closeFinishEffect()}
