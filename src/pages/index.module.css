@@ -149,7 +149,8 @@
   height: 99%;
   color: rgb(77 77 77);
   background-color: rgb(233 120 120 / 50%);
-  border: solid;
+
+  /* border: solid; */
   transition: width 0.4s linear;
 }
 
@@ -158,8 +159,8 @@
   display: flex;
   flex-flow: column;
   align-items: center;
-  width: 600px;
-  height: 500px;
+  width: 30%;
+  height: 40%;
   background-color: rgb(255 255 255 / 70%);
   border-radius: 50px;
   transition: width 0.4s ease-out;
@@ -169,8 +170,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 500px;
-  height: 100px;
+  width: 90%;
+  height: 20%;
   margin-top: 20%;
   font-size: 70px;
   color: black;
@@ -182,8 +183,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 200px;
-  height: 100px;
+  width: 30%;
+  height: 20%;
   margin-top: 13%;
   font-size: 70px;
   color: black;
@@ -259,6 +260,19 @@
   .scoreBoardStyle {
     margin-top: 8%;
     margin-left: 0;
+  }
+
+  .finishingBoard {
+    width: 350px;
+    height: 250px;
+  }
+
+  .winnerString {
+    font-size: 35px;
+  }
+
+  .endStoneNumString {
+    font-size: 35px;
   }
 
   /*
