@@ -91,20 +91,21 @@
   box-shadow: 5px 5px 5px -5px rgb(0 0 0 / 20%);
 }
 
-.displayStrings {
+.turnSwitcherString {
   display: flex;
-  width: 200px;
+  width: 90px;
   height: 40px;
-  font-size: 160px;
-  color: white;
+  margin-top: 8px;
+  font-size: 30px;
+  color: #fff;
 }
 
 .turnSwitcher {
   display: flex;
-  width: 180px;
+  width: 160px;
   height: 60px;
-  margin-top: 20px;
-  margin-left: 40px;
+  margin-top: 23px;
+  margin-left: 44px;
 
   /* border: solid; */
   border-radius: 15px;
@@ -148,19 +149,46 @@
   height: 99%;
   color: rgb(77 77 77);
   background-color: rgb(233 120 120 / 50%);
+  border: solid;
   transition: width 0.4s linear;
 }
 
-.finishStringsStyle {
-  position: absolute;
+.finishingBoard {
   top: 0;
   display: flex;
   flex-flow: column;
   align-items: center;
-  justify-content: center;
-  width: 800px;
-  height: 640px;
+  width: 600px;
+  height: 500px;
+  background-color: rgb(255 255 255 / 70%);
+  border-radius: 50px;
   transition: width 0.4s ease-out;
+}
+
+.winnerString {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 500px;
+  height: 100px;
+  margin-top: 20%;
+  font-size: 70px;
+  color: black;
+
+  /* border: solid; */
+}
+
+.endStoneNumString {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  height: 100px;
+  margin-top: 13%;
+  font-size: 70px;
+  color: black;
+
+  /* border: solid; */
 }
 
 .restartButtomStyle {
@@ -228,48 +256,35 @@
     height: 48px;
   }
 
+  .scoreBoardStyle {
+    margin-top: 8%;
+    margin-left: 0;
+  }
+
   /*
   .turnSwitcher {
     height: 50;
   } */
 
-  .scoreBoardStyle {
-    width: 250px;
-    height: 180px;
-    margin-top: 10%;
-    margin-left: 0;
-  }
+  @media screen and (max-width: 450px) {
+    .boardStyle {
+      width: 320px;
+      height: 320px;
+    }
 
-  .stoneNumBoardStyle {
-    height: 35px;
-    margin-left: 80px;
-  }
+    .cellStyle {
+      width: 40px;
+      height: 40px;
+    }
 
-  .displayStrings {
-    display: flex;
-    width: 100px;
-    font-size: 50px;
-  }
-}
+    .stoneStyle {
+      width: 20px;
+      height: 20px;
+    }
 
-@media screen and (max-width: 450px) {
-  .boardStyle {
-    width: 320px;
-    height: 320px;
-  }
-
-  .cellStyle {
-    width: 40px;
-    height: 40px;
-  }
-
-  .stoneStyle {
-    width: 20px;
-    height: 20px;
-  }
-
-  .canPlacePointStyle {
-    width: 48px;
-    height: 38px;
+    .canPlacePointStyle {
+      width: 48px;
+      height: 38px;
+    }
   }
 }

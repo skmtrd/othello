@@ -108,7 +108,7 @@ const Home = () => {
     [0, 0, 3, 0, 0, 0, 0, 0],
     [0, 0, 0, 3, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 2, 1, 1, 1, 1, 0, 0],
   ]);
   const closeFinishEffect = () => {
     const newBoard = restartBoard;
@@ -152,21 +152,17 @@ const Home = () => {
       </div>
       <div className={styles.scoreBoardStyle}>
         <div className={styles.turnSwitcher}>
-          <div
-            className={styles.displayStrings}
-            style={{
-              fontSize: 25,
-              marginTop: 10.5,
-              marginLeft: 30,
-              width: 65,
-            }}
-          >
-            Turn
-          </div>
+          <div className={styles.turnSwitcherString}>Turn :</div>
 
           <div
             className={styles.stoneStyle}
-            style={{ background: { 1: '#585858', 2: '#fff' }[turnColor] }}
+            style={{
+              background: { 1: '#585858', 2: '#fff' }[turnColor],
+              marginLeft: 14,
+              width: 48,
+              height: 48,
+              marginTop: 2,
+            }}
           />
         </div>
         <div className={styles.stoneNumBoardStyle}>
@@ -192,32 +188,13 @@ const Home = () => {
         }}
         onClick={() => closeFinishEffect()}
       >
-        <div className={styles.finishStringsStyle}>
-          <div
-            className={styles.displayStrings}
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              width: 500,
-              height: 180,
-              margin: '0 auto',
-              marginTop: '20%',
-            }}
-          >
-            <div style={{ display: 'flex' }}>finish</div>
+        <div className={styles.finishingBoard}>
+          <div className={styles.winnerString}>
+            <div style={{ display: 'flex' }}>
+              {['White', 'Black'][+(stoneNum[0] > stoneNum[1])]} win!!
+            </div>
           </div>
-          <div
-            className={styles.displayStrings}
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              fontSize: '40px',
-              width: 300,
-              height: 130,
-              margin: '0 auto',
-              marginTop: '10%',
-            }}
-          >
+          <div className={styles.endStoneNumString}>
             <div style={{ display: 'flex' }}>
               {stoneNum[0]} : {stoneNum[1]}
             </div>
