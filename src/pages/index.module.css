@@ -219,7 +219,7 @@
 
 .btn:active {
   box-shadow: none;
-  transform: translateY(5px);
+  transform: translateY(2px) translateX(2px);
 }
 @keyframes blinking {
   0% {
